@@ -1,2 +1,2 @@
-rootProject.name = "APIProjectTask"
+rootProject.name = "APITestTaskSdet"
 

@@ -1,3 +1,5 @@
+/.github/
 /.idea/
+/build/
 /gradle/
 /.gradle/
