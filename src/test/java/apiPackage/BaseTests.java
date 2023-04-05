@@ -13,7 +13,6 @@ public class BaseTests {
     protected String pathToBody;
     protected String ability;
     protected String pathToWeight;
-
     protected String pathToPokemon;
 
 
@@ -35,14 +34,11 @@ public class BaseTests {
 
         Assert.assertNotEquals(Response.checkAbility(firstPokemon, pathToBody, ability)
                 , Response.checkAbility(secondPokemon, pathToBody, ability));
-
     }
 
     @Test
     public void checkWeightDifference() {
         Assert.assertTrue(Response.checkWeightDiff(firstPokemon, secondPokemon, pathToWeight));
-
-
     }
 
     @Test
