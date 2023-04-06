@@ -1,6 +1,8 @@
 package apiPackage;
 
 
+
+import com.google.gson.Gson;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,9 +27,8 @@ public class BaseTests {
     @Test
     public void checkPokemonName() {
         Assert.assertTrue(
-                RequestToApi.listOfPokemon().stream().limit(15).allMatch(x -> x.getName()!= null),
+                RequestToApi.listOfPokemon().stream().limit(15).allMatch(x -> x.getName() != null),
                 "Ошибка,одно из имен пустое!");
-
     }
 
     @Test
@@ -38,6 +39,12 @@ public class BaseTests {
                 RequestToApi.listOfAbilities(secondPokemon)
                         .stream().map(x -> x.getName()).collect(Collectors.toList()).contains(ability),
                 "Ошибка, у них есть общая способность run-away!");
+    }
 
+    @Test
+    public void checkWeightDifference() {
+        Gson gson = new Gson();
+        String toJson = gson.toJson(RequestToApi.valueOfWeight(firstPokemon));
+        //Как мне достать значение weight из Json ??
     }
 }

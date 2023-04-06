@@ -19,8 +19,6 @@ public class Specifications {
         return new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .build();
-
-
     }
 
     public static void installSpecification(RequestSpecification request,ResponseSpecification response){
