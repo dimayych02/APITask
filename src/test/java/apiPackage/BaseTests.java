@@ -1,50 +1,43 @@
 package apiPackage;
 
 
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.stream.Collectors;
+
 
 public class BaseTests {
-    protected String url;
-    protected String firstPokemon;
-    protected String secondPokemon;
-    protected String pathToBody;
-    protected String ability;
-    protected String pathToWeight;
-    protected String pathToPokemon;
+
+    protected final static String firstPokemon = "rattata";
+    protected final static String secondPokemon = "pidgeotto";
+    protected final static String ability = "run-away";
+    protected final static String url = "https://pokeapi.co/api/v2/pokemon";
 
 
     @BeforeMethod
     public void setUpApi() {
-        url = ConfProperties.getProperty("url");
-        firstPokemon = ConfProperties.getProperty("firstPokemon");
-        secondPokemon = ConfProperties.getProperty("secondPokemon");
-        pathToBody = ConfProperties.getProperty("pathToBody");
-        ability = ConfProperties.getProperty("ability");
-        pathToWeight = ConfProperties.getProperty("pathToWeight");
-        pathToPokemon = ConfProperties.getProperty("pathToPokemon");
-        ReqSpecification.installSpecification(ReqSpecification.requestSpec(url)
-                , ReqSpecification.responseSpec());
+        Specifications.installSpecification(Specifications.requestSpec(url), Specifications.responseSpec());
     }
 
-    @Test
-    public void checkUsersAbility() {
-
-        Assert.assertNotEquals(Response.checkAbility(firstPokemon, pathToBody, ability)
-                , Response.checkAbility(secondPokemon, pathToBody, ability));
-    }
-
-    @Test
-    public void checkWeightDifference() {
-        Assert.assertTrue(Response.checkWeightDiff(firstPokemon, secondPokemon, pathToWeight));
-    }
 
     @Test
     public void checkPokemonName() {
-        Assert.assertTrue(Response.getListsOfPokemonOrAbility("", pathToPokemon)
-                .stream().limit(15)
-                .allMatch(x -> x.getName().length() > 0));
+        Assert.assertTrue(
+                RequestToApi.listOfPokemon().stream().limit(15).allMatch(x -> x.getName()!= null),
+                "Ошибка,одно из имен пустое!");
+
+    }
+
+    @Test
+    public void checkPokemonAbility() {
+        Assert.assertNotEquals(
+                RequestToApi.listOfAbilities(firstPokemon)
+                        .stream().map(x -> x.getName()).collect(Collectors.toList()).contains(ability),
+                RequestToApi.listOfAbilities(secondPokemon)
+                        .stream().map(x -> x.getName()).collect(Collectors.toList()).contains(ability),
+                "Ошибка, у них есть общая способность run-away!");
+
     }
 }
