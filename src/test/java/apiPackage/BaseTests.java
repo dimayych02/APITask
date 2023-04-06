@@ -1,7 +1,6 @@
 package apiPackage;
 
 
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,8 +12,10 @@ public class BaseTests {
 
     protected final static String firstPokemon = "rattata";
     protected final static String secondPokemon = "pidgeotto";
+    protected final static String endpointPokemon = "pokemon";
+    protected final static String endpointPokemonSpecies = "pokemon-species";
     protected final static String ability = "run-away";
-    protected final static String url = "https://pokeapi.co/api/v2/pokemon";
+    protected final static String url = "https://pokeapi.co/api/v2";
 
 
     @BeforeMethod
@@ -42,15 +43,30 @@ public class BaseTests {
 
     @Test
     public void checkWeightDifference() {
-        Assert.assertTrue(RequestToApi.property(firstPokemon).getAsJsonObject().get("weight").getAsInt() <
-                        RequestToApi.property(secondPokemon).getAsJsonObject().get("weight").getAsInt(),
+        Assert.assertTrue(RequestToApi.property(endpointPokemon, firstPokemon, PojoWeight.class)
+                        .getAsJsonObject().get("weight").getAsInt() <
+                        RequestToApi.property(endpointPokemon, secondPokemon, PojoWeight.class)
+                                .getAsJsonObject().get("weight").getAsInt(),
                 "Ошибка,вес первого покемона больше,чем первого!");
     }
 
     @Test
     public void comparePokemonExperience() {
-        Assert.assertTrue(RequestToApi.property(firstPokemon).getAsJsonObject().get("base_experience").getAsInt()<
-                RequestToApi.property(secondPokemon).getAsJsonObject().get("base_experience").getAsInt(),
+        Assert.assertTrue(RequestToApi.property(endpointPokemon, firstPokemon, PojoWeight.class).getAsJsonObject().get("base_experience").getAsInt() <
+                        RequestToApi.property(endpointPokemon, secondPokemon, PojoWeight.class).getAsJsonObject().get("base_experience").getAsInt(),
                 "Ошибка,боевой опыт первого покемона больше второго!");
+    }
+
+    @Test
+    public void sumAttackPotential() {
+        Assert.assertTrue(RequestToApi.property(endpointPokemonSpecies, firstPokemon, PojoAttackPerformance.class)
+                        .getAsJsonObject().get("base_happiness").getAsInt()
+                        + RequestToApi.property(endpointPokemonSpecies, firstPokemon, PojoAttackPerformance.class)
+                        .getAsJsonObject().get("capture_rate").getAsInt() >
+                        RequestToApi.property(endpointPokemonSpecies, secondPokemon, PojoAttackPerformance.class)
+                                .getAsJsonObject().get("base_happiness").getAsInt() +
+                                RequestToApi.property(endpointPokemonSpecies, secondPokemon, PojoAttackPerformance.class)
+                                        .getAsJsonObject().get("capture_rate").getAsInt(),
+                "Ошибка,боевая мощь второго покемона больше!");
     }
 }

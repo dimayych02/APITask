@@ -12,14 +12,14 @@ import static io.restassured.RestAssured.given;
 public class RequestToApi {
 
 
-    public static Object valueOfWeight(String pokemon) {
+    public static Object someJsonObject(String endpoint, String pokemon,Class pojoClass) {
         return given().when()
-                .get("/" + pokemon)
-                .then().extract().jsonPath().getObject("", PojoWeight.class);
+                .get("/"+endpoint+"/"+pokemon)
+                .then().extract().jsonPath().getObject("", pojoClass);
     }
 
-    public static JsonElement property(String pokemon) {
-        return new Gson().toJsonTree(valueOfWeight(pokemon));
+    public static JsonElement property(String endpoint,String pokemon,Class pojoClass) {
+        return new Gson().toJsonTree(someJsonObject(endpoint,pokemon,pojoClass));
     }
 
     public static List<PojoPokemon> listOfPokemon() {
@@ -33,7 +33,7 @@ public class RequestToApi {
     public static List<PojoAbility> listOfAbilities(String pokemon) {
         return given()
                 .when()
-                .get("/" + pokemon)
+                .get("/pokemon/" + pokemon)
                 .then()
                 .extract().jsonPath()
                 .getList("abilities.ability", PojoAbility.class);
