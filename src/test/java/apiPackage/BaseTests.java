@@ -3,6 +3,7 @@ package apiPackage;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -44,7 +45,10 @@ public class BaseTests {
     @Test
     public void checkWeightDifference() {
         Gson gson = new Gson();
-        String toJson = gson.toJson(RequestToApi.valueOfWeight(firstPokemon));
-        //Как мне достать значение weight из Json ??
+        JsonElement valueOfWeight1 = gson.toJsonTree(RequestToApi.valueOfWeight(firstPokemon));
+        JsonElement valuerOfWeigh2= gson.toJsonTree(RequestToApi.valueOfWeight(secondPokemon));
+          Assert.assertTrue(valueOfWeight1.getAsJsonObject().get("weight").getAsInt()<
+                  valuerOfWeigh2.getAsJsonObject().get("weight").getAsInt(),
+                  "Ошибка,вес первого покемона больше,чем первого!");
     }
 }
