@@ -1,13 +1,18 @@
 package apiPackage;
 
 
+import LogApiListener.LogListener;
+import PojoClasses.PojoAttackPerformance;
+import PojoClasses.PojoWeight;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.stream.Collectors;
 
-
+@Listeners(LogListener.class)
 public class BaseTests {
 
     protected final static String firstPokemon = "rattata";
@@ -17,11 +22,11 @@ public class BaseTests {
     protected final static String ability = "run-away";
     protected final static String url = "https://pokeapi.co/api/v2";
 
-
     @BeforeMethod
     public void setUpApi() {
         Specifications.installSpecification(Specifications.requestSpec(url), Specifications.responseSpec());
     }
+
 
 
     @Test

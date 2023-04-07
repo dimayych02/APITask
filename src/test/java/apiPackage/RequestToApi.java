@@ -1,6 +1,8 @@
 package apiPackage;
 
 
+import PojoClasses.PojoAbility;
+import PojoClasses.PojoPokemon;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
