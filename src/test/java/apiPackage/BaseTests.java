@@ -38,9 +38,9 @@ public class BaseTests {
     public void checkPokemonAbility() {
         Assert.assertNotEquals(
                 RequestToApi.pokemonModel(endpointPokemon+"/"+firstPokemon).getAbilities()
-                        .stream().map(x -> x.getName()).collect(Collectors.toList()).contains(ability),
+                        .stream().anyMatch(x->x.getName().contains(ability)),
                 RequestToApi.pokemonModel(endpointPokemon+"/"+ secondPokemon).getAbilities()
-                        .stream().map(x -> x.getName()).collect(Collectors.toList()).contains(ability),
+                        .stream().anyMatch(x->x.getName().contains(ability)),
                 "Ошибка, у них есть общая способность run-away!");
     }
 
