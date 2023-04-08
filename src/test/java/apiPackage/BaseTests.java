@@ -1,17 +1,17 @@
 package apiPackage;
 
 
+import ConfPropeties.ConfProperties;
 import LogApiListener.ApiListener;
+import SpecificationPackage.Specifications;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 
 
-@Listeners(ApiListener.class)
-public class BaseTests {
 
+public class BaseTests extends ApiListener {
 
     protected final static String firstPokemon = "rattata";
     protected final static String secondPokemon = "pidgeotto";

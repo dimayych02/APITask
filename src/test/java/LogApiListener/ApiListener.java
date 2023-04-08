@@ -8,6 +8,8 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -21,8 +23,8 @@ public class ApiListener implements ITestListener {
     private  PrintStream responseVar = new PrintStream(response,true);
 
 
-    @Override
-    public  void onTestSuccess(ITestResult result){
+    @AfterMethod
+    public  void logAfterTests(){
         RestAssured.filters(new ResponseLoggingFilter(LogDetail.ALL,responseVar),
                 new RequestLoggingFilter(LogDetail.ALL,requestVar));
        logRequest(request);
