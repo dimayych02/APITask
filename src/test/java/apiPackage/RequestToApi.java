@@ -9,15 +9,16 @@ import static io.restassured.RestAssured.given;
 public class RequestToApi {
 
 
-    public static Response response(String endpoint) {
+    public static Response response(String endpoint, String pokemon) {
         return given()
                 .when()
-                .basePath(endpoint)
-                .get()
+                .pathParam("endpoint", endpoint)
+                .pathParam("name", pokemon)
+                .get("/{endpoint}/{name}")
                 .then().extract().response();
     }
 
-    public static PokemonModel pokemonModel(String endpoint) {
-        return response(endpoint).as(PokemonModel.class);
+    public static PokemonModel pokemonModel(String endpoint, String pokemon) {
+        return response(endpoint, pokemon).as(PokemonModel.class);
     }
 }
