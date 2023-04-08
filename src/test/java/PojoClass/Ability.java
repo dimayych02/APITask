@@ -5,20 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PokemonModel {
-    private int weight;
-    private int base_experience;
+public class Ability {
     private String name;
     private String url;
-    private int base_happiness;
-    private int capture_rate;
-    private List<PokemonModel> results;
-    private List<Ability> ability;
 }
