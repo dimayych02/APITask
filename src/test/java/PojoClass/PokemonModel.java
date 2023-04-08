@@ -21,5 +21,4 @@ public class PokemonModel {
     private int base_happiness;
     private int capture_rate;
     private List<PokemonModel> results;
-    private ArrayList<PokemonModel> abilities;
 }
