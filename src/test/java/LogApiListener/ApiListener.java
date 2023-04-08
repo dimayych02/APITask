@@ -6,8 +6,6 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +13,7 @@ import java.io.PrintStream;
 
 
 
-public class ApiListener implements ITestListener {
+public class ApiListener  {
 
     private  ByteArrayOutputStream request = new ByteArrayOutputStream();
     private  ByteArrayOutputStream response = new ByteArrayOutputStream();
