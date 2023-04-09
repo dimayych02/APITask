@@ -34,10 +34,10 @@ public class BaseTests extends ApiListener {
 
     @Test
     public void checkPokemonAbility() {
-        Assert.assertNotEquals(RequestToApi.pokemonModel(endpointPokemon, firstPokemon)
-                        .getAbility().stream().anyMatch(x->x.getName().contains(ability)),
-                RequestToApi.pokemonModel(endpointPokemon, secondPokemon)
-                        .getAbility().stream().anyMatch(x->x.getName().contains(ability)),
+        Assert.assertNotEquals(RequestToApi.listOfAbilities(endpointPokemon, firstPokemon)
+                        .stream().anyMatch(x->x.getName().contains(ability)),
+                RequestToApi.listOfAbilities(endpointPokemon, secondPokemon)
+                        .stream().anyMatch(x->x.getName().contains(ability)),
                 "Ошибка, у них есть общая способность run-away!");
     }
 
