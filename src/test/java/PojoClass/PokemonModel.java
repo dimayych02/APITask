@@ -20,4 +20,24 @@ public class PokemonModel {
     private int base_happiness;
     private int capture_rate;
     private List<PokemonModel> results;
+    private List<Abilities> abilities;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Abilities {
+        private Ability ability;
+
+
+        @Data
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class Ability {
+           private String name;
+           private String url;
+        }
+    }
+
 }

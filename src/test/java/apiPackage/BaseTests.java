@@ -2,14 +2,13 @@ package apiPackage;
 
 
 import ConfPropeties.ConfProperties;
-import LogApiListener.ApiListener;
 import SpecificationPackage.Specifications;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-public class BaseTests extends ApiListener {
+public class BaseTests  {
 
     protected final static String firstPokemon = "rattata";
     protected final static String secondPokemon = "pidgeotto";
@@ -26,20 +25,25 @@ public class BaseTests extends ApiListener {
 
 
     @Test
-    public void checkPokemonName() {
+    public void checkPokemonNameAndLimit() {
         Assert.assertTrue(
-                RequestToApi.pokemonModel(endpointPokemon, "").getResults().stream().allMatch(x -> x.getName() != null),
+                RequestToApi.listOfPokemon(endpointPokemon, 300).stream().allMatch(x -> x.getName() != null),
                 "Ошибка,одно из имен пустое!");
+        Assert.assertEquals(RequestToApi.listOfPokemon(endpointPokemon, 300).size(), 300,
+                "Ошибка,список ограничен неверно!");
     }
 
     @Test
     public void checkPokemonAbility() {
-        Assert.assertNotEquals(RequestToApi.listOfAbilities(endpointPokemon, firstPokemon)
-                        .stream().anyMatch(x->x.getName().contains(ability)),
-                RequestToApi.listOfAbilities(endpointPokemon, secondPokemon)
-                        .stream().anyMatch(x->x.getName().contains(ability)),
+        Assert.assertNotEquals(RequestToApi.pokemonAbilities(endpointPokemon, firstPokemon)
+                        .stream().anyMatch(x -> x.getAbility().getName().contains(ability)),
+                RequestToApi.pokemonAbilities(endpointPokemon, secondPokemon)
+                        .stream().anyMatch(x -> x.getAbility().getName().contains(ability)),
                 "Ошибка, у них есть общая способность run-away!");
+
+
     }
+
 
     @Test
     public void checkWeightDifference() {
