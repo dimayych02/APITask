@@ -1,4 +1,4 @@
-package apiPackage;
+package ApiPackage;
 
 
 import ConfPropeties.ConfProperties;
