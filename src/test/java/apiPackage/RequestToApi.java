@@ -1,4 +1,4 @@
-package ApiPackage;
+package apiPackage;
 
 
 import PojoClass.PokemonModel;
@@ -27,5 +27,6 @@ public class RequestToApi {
    public static List<PokemonModel> listOfAbilities(String endpoint, String pokemon){
         return response(endpoint,pokemon).jsonPath().getList("abilities.ability", PokemonModel.class);
    }
+
 
 }
