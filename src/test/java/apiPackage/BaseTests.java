@@ -29,6 +29,8 @@ public class BaseTests  {
         Assert.assertTrue(
                 RequestToApi.listOfPokemon(endpointPokemon, 300).stream().allMatch(x -> x.getName() != null),
                 "Ошибка,одно из имен пустое!");
+        Assert.assertEquals(RequestToApi.listOfPokemon(endpointPokemon, 300).size(), 300,
+                "Ошибка,список ограничен неверно!");
     }
 
     @Test
