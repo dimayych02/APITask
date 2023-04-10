@@ -37,7 +37,7 @@ public class BaseTests {
                         .getWeight() <
                         RequestToApi.pokemonModel(ConfProperties.getProperty("pokemonInfo"), secondPokemon)
                                 .getWeight(),
-                "Ошибка,вес первого покемона больше,чем первого!");
+                "Ошибка,вес первого покемона больше,чем второго!");
     }
 
     @Test

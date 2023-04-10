@@ -27,7 +27,7 @@ public class RequestToApi {
 
     public static List<PokemonModel> listOfPokemon(String basePath,int queryParamLimit) {
         return given()
-                .spec(Specifications.requestSpecPokemonWithoutPokemon(ConfProperties.getProperty("url"),basePath))
+                .spec(Specifications.requestSpecWithoutPokemon(ConfProperties.getProperty("url"),basePath))
                 .queryParam("limit",queryParamLimit)
                 .get()
                 .then()

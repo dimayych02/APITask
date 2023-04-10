@@ -18,7 +18,7 @@ public class Specifications {
                 .build();
     }
 
-    public static RequestSpecification requestSpecPokemonWithoutPokemon(String url, String basePath) {
+    public static RequestSpecification requestSpecWithoutPokemon(String url, String basePath) {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
                 .setBasePath(basePath)
