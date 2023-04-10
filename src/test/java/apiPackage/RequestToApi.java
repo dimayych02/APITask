@@ -1,7 +1,9 @@
 package apiPackage;
 
 
+import ConfPropeties.ConfProperties;
 import PojoClass.PokemonModel;
+import SpecificationPackage.Specifications;
 import io.restassured.response.Response;
 
 
@@ -12,21 +14,25 @@ import static io.restassured.RestAssured.given;
 public class RequestToApi {
 
 
-    public static Response response(String endpoint, String pokemon) {
+    public static Response response(String basePath,String pokemon) {
         return given()
-                .pathParam("endpoint", endpoint)
-                .pathParam("name", pokemon)
-                .get("/{endpoint}/{name}")
-                .then().extract().response();
+                .spec(Specifications.requestSpecPokemon(ConfProperties.getProperty("url"),basePath,pokemon))
+                .get()
+                .then()
+                .spec(Specifications.responseSpec())
+                .extract().response();
     }
 
 
-    public static List<PokemonModel> listOfPokemon(String endpoint,int queryParamLimit) {
+
+    public static List<PokemonModel> listOfPokemon(String basePath,int queryParamLimit) {
         return given()
-                .pathParam("endpoint", endpoint)
+                .spec(Specifications.requestSpecPokemonWithoutPokemon(ConfProperties.getProperty("url"),basePath))
                 .queryParam("limit",queryParamLimit)
-                .get("/{endpoint}")
-                .then().extract().as(PokemonModel.class).getResults();
+                .get()
+                .then()
+                .spec(Specifications.responseSpec())
+                .extract().as(PokemonModel.class).getResults();
     }
 
     public static PokemonModel pokemonModel(String endpoint, String pokemon) {
