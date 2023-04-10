@@ -16,7 +16,7 @@ public class RequestToApi {
 
     public static Response response(String basePath,String pokemon) {
         return given()
-                .spec(Specifications.requestSpecPokemon(ConfProperties.getProperty("url"),basePath,pokemon))
+                .spec(Specifications.requestSpecWithPathParam(ConfProperties.getProperty("url"),basePath,pokemon))
                 .get()
                 .then()
                 .spec(Specifications.responseSpec())
@@ -27,8 +27,7 @@ public class RequestToApi {
 
     public static List<PokemonModel> listOfPokemon(String basePath,int queryParamLimit) {
         return given()
-                .spec(Specifications.requestSpecWithoutPokemon(ConfProperties.getProperty("url"),basePath))
-                .queryParam("limit",queryParamLimit)
+                .spec(Specifications.requestSpecWithQueryParam(ConfProperties.getProperty("url"),basePath,queryParamLimit))
                 .get()
                 .then()
                 .spec(Specifications.responseSpec())

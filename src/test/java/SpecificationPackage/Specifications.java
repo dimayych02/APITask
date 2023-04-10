@@ -8,7 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class Specifications {
-    public static RequestSpecification requestSpecPokemon(String url, String basePath, String pokemonName) {
+    public static RequestSpecification requestSpecWithPathParam(String url, String basePath, String pokemonName) {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
                 .setBasePath(basePath)
@@ -18,11 +18,12 @@ public class Specifications {
                 .build();
     }
 
-    public static RequestSpecification requestSpecWithoutPokemon(String url, String basePath) {
+    public static RequestSpecification requestSpecWithQueryParam(String url, String basePath,int number) {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
                 .setBasePath(basePath)
                 .setContentType(ContentType.JSON)
+                .addQueryParam("limit",number)
                 .addFilter(new AllureRestAssured())
                 .build();
     }
